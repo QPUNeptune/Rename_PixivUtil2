@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.VisualBasic;
+using NaturalSort.Extension;
 
 namespace rename_pixiv
 {
@@ -38,7 +39,7 @@ namespace rename_pixiv
             {
                 Console.Clear();
                 string dirPath = Directory.GetCurrentDirectory(); //get the directory path the program is currently in
-                List<string> files = Directory.GetFiles(dirPath).ToList(); //get all file paths in the directory the program is currently in
+                List<string> files = Directory.GetFiles(dirPath).OrderBy(f => f, StringComparison.OrdinalIgnoreCase.WithNaturalSort()).ToList(); //get all file paths in the directory the program is currently in
                 files.Remove(files.Find(s => s.Contains(Environment.GetCommandLineArgs()[0]))); //remove the program path to avoid renaming itself
                 
                 for (var i = 0; i < files.Count; i++)
